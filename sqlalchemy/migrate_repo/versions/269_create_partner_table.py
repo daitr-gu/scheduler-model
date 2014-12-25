@@ -43,6 +43,7 @@ def upgrade(engine):
             Column('password', String(100), nullable=False),
             Column('requested', Integer, nullable=False, default=0),
             Column('satisfied', Integer, nullable=False, default=0),
+            Column('total_vm', Integer, nullable=False, default=0),
             Column('limit_ratio', Float, nullable=False, default=1),
             mysql_engine='InnoDB',
             mysql_charset='utf8'

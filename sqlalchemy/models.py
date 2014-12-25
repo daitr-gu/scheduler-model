@@ -1451,6 +1451,7 @@ class Partner(BASE, NovaBase):
     password = Column(String(100), nullable=False)
     requested = Column(Integer, nullable=False, default=0)
     satisfied = Column(Integer, nullable=False, default=0)
+    total_vm = Column(Integer, nullable=False, default=0)
     limit_ratio = Column(Float, nullable=False, default=1)
 
 
