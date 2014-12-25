@@ -22,7 +22,7 @@ from sqlalchemy import String
 from sqlalchemy import Float
 from sqlalchemy import Table
 
-from nova.openstack.common import timeutils
+from oslo.utils import timeutils
 
 
 def upgrade(engine):
@@ -30,20 +30,16 @@ def upgrade(engine):
     meta.bind = engine
 
     # Create new table partner
-    table = Table('partners', meta,
+    table = Table('temp_instances', meta,
             Column('created_at', DateTime, default=timeutils.utcnow),
             Column('updated_at', DateTime, onupdate=timeutils.utcnow),
             Column('deleted_at', DateTime),
-            Column('deleted', Integer, default=0),
+            Column('started_at', DateTime, nullable=False, default=timeutils.utcnow),
+            Column('stopped_at', DateTime, nullable=False, default=timeutils.utcnow),
+            Column('deleted', Integer, default=0, nullable=False),
             Column('id', Integer, primary_key=True, nullable=False, autoincrement=True),
-            Column('shortname', String(10), nullable=False),
-            Column('description', String(255)),
-            Column('auth_url', String(255), nullable=False),
-            Column('username', String(50), nullable=False),
-            Column('password', String(100), nullable=False),
-            Column('requested', Integer, nullable=False, default=0),
-            Column('satisfied', Integer, nullable=False, default=0),
-            Column('limit_ratio', Float, nullable=False, default=1),
+            Column('host', String(10), nullable=False),
+            Column('flavor', Integer, nullable=False),
             mysql_engine='InnoDB',
             mysql_charset='utf8'
     )
@@ -54,5 +50,5 @@ def downgrade(engine):
     meta = MetaData()
     meta.bind = engine
 
-    table = Table('partners', meta)
+    table = Table('temp_instances', meta)
     table.drop(checkfirst=True)
