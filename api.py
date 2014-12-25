@@ -2024,3 +2024,29 @@ def instance_tag_delete(context, instance_uuid, tag):
 def instance_tag_delete_all(context, instance_uuid):
     """Delete all tags from the instance."""
     return IMPL.instance_tag_delete_all(context, instance_uuid)
+
+
+###################################
+
+
+def partners_get_all(context):
+    return IMPL.partners_get_all(context)
+
+
+def partners_get_by_shortname(context, shortname):
+    return IMPL.partners_get_by_shortname(context, shortname)
+
+
+def partners_update(context, shortname, values):
+    return IMPL.partners_update(context, shortname, values)
+
+
+###################################
+
+
+def temp_instances_get_by_host(context, host):
+    return IMPL.temp_instances_get_by_host(context, host)
+
+
+def temp_instances_create(values):
+    return IMPL.temp_instances_create(values)
